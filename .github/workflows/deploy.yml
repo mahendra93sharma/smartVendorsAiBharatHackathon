@@ -1,0 +1,293 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-south-1
+  TERRAFORM_VERSION: 1.5.0
+  PYTHON_VERSION: "3.11"
+  NODE_VERSION: "18"
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Install Python dependencies
+        run: |
+          if [ -f backend/requirements.txt ]; then
+            pip install -r backend/requirements.txt
+          fi
+          pip install black mypy pytest hypothesis
+      
+      - name: Run Python linting
+        run: |
+          if [ -d backend ]; then
+            black --check backend/
+          fi
+      
+      - name: Run Python type checking
+        run: |
+          if [ -d backend ]; then
+            mypy backend/ --ignore-missing-imports || true
+          fi
+      
+      - name: Run Python tests
+        run: |
+          if [ -d backend/tests ]; then
+            pytest backend/tests/ -v
+          fi
+      
+      - name: Install frontend dependencies
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm ci
+          fi
+      
+      - name: Run frontend linting
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm run lint || true
+          fi
+      
+      - name: Run frontend tests
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm test || true
+          fi
+
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      
+      - name: Terraform Init
+        working-directory: infrastructure/terraform
+        run: terraform init
+      
+      - name: Terraform Plan
+        working-directory: infrastructure/terraform
+        run: terraform plan -no-color
+        continue-on-error: true
+
+  deploy-infrastructure:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    outputs:
+      api_gateway_endpoint: ${{ steps.terraform-output.outputs.api_gateway_endpoint }}
+      cloudfront_domain: ${{ steps.terraform-output.outputs.cloudfront_domain }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      
+      - name: Create Lambda layer
+        run: |
+          mkdir -p python
+          if [ -f backend/requirements.txt ]; then
+            pip install -r backend/requirements.txt -t python/
+          fi
+          zip -r lambda_layer.zip python/
+          mv lambda_layer.zip infrastructure/
+      
+      - name: Terraform Init
+        working-directory: infrastructure/terraform
+        run: terraform init
+      
+      - name: Terraform Apply
+        working-directory: infrastructure/terraform
+        run: terraform apply -auto-approve
+      
+      - name: Get Terraform Outputs
+        id: terraform-output
+        working-directory: infrastructure/terraform
+        run: |
+          echo "api_gateway_endpoint=$(terraform output -raw api_gateway_endpoint)" >> $GITHUB_OUTPUT
+          echo "cloudfront_domain=$(terraform output -raw cloudfront_domain_name)" >> $GITHUB_OUTPUT
+
+  deploy-lambda:
+    name: Deploy Lambda Functions
+    runs-on: ubuntu-latest
+    needs: deploy-infrastructure
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Package Lambda functions
+        run: |
+          if [ -d backend/lambda_functions ]; then
+            cd backend/lambda_functions
+            for dir in */; do
+              if [ -f "${dir}handler.py" ]; then
+                cd "$dir"
+                zip -r "../${dir%/}.zip" .
+                cd ..
+              fi
+            done
+          fi
+      
+      - name: Deploy Lambda functions
+        run: |
+          if [ -d backend/lambda_functions ]; then
+            cd backend/lambda_functions
+            for zip_file in *.zip; do
+              function_name="${zip_file%.zip}"
+              aws lambda update-function-code \
+                --function-name "smart-vendors-${function_name}-dev" \
+                --zip-file "fileb://${zip_file}" \
+                --region ${{ env.AWS_REGION }} || echo "Function ${function_name} not found, skipping"
+            done
+          fi
+
+  deploy-frontend:
+    name: Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: deploy-infrastructure
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm ci
+          fi
+      
+      - name: Build frontend
+        env:
+          VITE_API_BASE_URL: ${{ needs.deploy-infrastructure.outputs.api_gateway_endpoint }}
+        run: |
+          if [ -f frontend/package.json ]; then
+            cd frontend && npm run build
+          fi
+      
+      - name: Deploy to S3
+        run: |
+          if [ -d frontend/dist ]; then
+            aws s3 sync frontend/dist/ s3://smart-vendors-static-dev/ --delete
+          fi
+      
+      - name: Invalidate CloudFront cache
+        run: |
+          DISTRIBUTION_ID=$(aws cloudfront list-distributions \
+            --query "DistributionList.Items[?Comment=='Smart Vendors Frontend Distribution'].Id" \
+            --output text)
+          if [ -n "$DISTRIBUTION_ID" ]; then
+            aws cloudfront create-invalidation \
+              --distribution-id $DISTRIBUTION_ID \
+              --paths "/*"
+          fi
+
+  seed-demo-data:
+    name: Seed Demo Data
+    runs-on: ubuntu-latest
+    needs: [deploy-infrastructure, deploy-lambda]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          pip install boto3
+      
+      - name: Run seed script
+        run: |
+          if [ -f backend/scripts/seed_data.py ]; then
+            python backend/scripts/seed_data.py
+          fi

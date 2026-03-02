@@ -1,0 +1,9 @@
+# AWS Configuration
+aws_region = "ap-south-1"
+
+# Project Configuration
+project_name = "smart-vendors"
+environment  = "dev"
+
+# Lambda Layer
+lambda_layer_path = "../lambda_layer.zip"

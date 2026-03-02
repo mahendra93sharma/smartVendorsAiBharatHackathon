@@ -1,0 +1,5 @@
+# Lambda Layer Requirements
+# These dependencies are packaged as a Lambda layer and shared across all functions
+
+boto3==1.34.0
+botocore==1.34.0
