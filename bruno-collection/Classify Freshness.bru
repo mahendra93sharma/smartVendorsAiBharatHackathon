@@ -1,0 +1,41 @@
+meta {
+  name: Classify Freshness
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{base_url}}/freshness/classify
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-api-key: {{api_key}}
+}
+
+body:json {
+  {
+    "image": "/9j/4AAQSkZJRgABAQEAYABgAAD...",
+    "vendor_id": "{{vendor_id}}"
+  }
+}
+
+docs {
+  # Classify Freshness API
+  
+  Classify produce freshness using SageMaker ML model.
+  
+  ## Parameters
+  - `image` (string, required): Base64-encoded image file (JPEG, PNG)
+  - `vendor_id` (string, required): Vendor UUID
+  
+  ## Response
+  Returns freshness category (Fresh/B-Grade/Waste), confidence score, shelf life estimate, and suggestions.
+  
+  ## Categories
+  - `Fresh`: High quality, ready for sale (confidence > 0.7)
+  - `B-Grade`: Slightly aged, suitable for juice/processing (confidence 0.4-0.7)
+  - `Waste`: Not suitable for sale, compost recommended (confidence < 0.4)
+}

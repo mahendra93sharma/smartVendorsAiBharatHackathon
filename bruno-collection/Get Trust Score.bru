@@ -1,0 +1,32 @@
+meta {
+  name: Get Trust Score
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{base_url}}/trust-score/{{vendor_id}}
+  body: none
+  auth: none
+}
+
+headers {
+  x-api-key: {{api_key}}
+}
+
+docs {
+  # Get Trust Score API
+  
+  Get Trust Score and tier for a vendor.
+  
+  ## Path Parameters
+  - `vendor_id` (string, required): Vendor UUID
+  
+  ## Response
+  Returns trust score, current tier, points to next tier, breakdown by activity, and tier benefits.
+  
+  ## Tier Thresholds
+  - Bronze: 0-99 points
+  - Silver: 100-249 points
+  - Gold: 250+ points
+}

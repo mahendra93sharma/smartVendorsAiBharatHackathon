@@ -1,0 +1,23 @@
+[build]
+  base = "frontend"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+  VITE_API_BASE_URL = "https://ji5ymmu4g7.execute-api.ap-south-1.amazonaws.com"
+  VITE_API_GATEWAY_URL = "https://ji5ymmu4g7.execute-api.ap-south-1.amazonaws.com"
+  VITE_ENABLE_DEMO_MODE = "true"
+  VITE_ENABLE_OFFLINE_MODE = "true"
+  VITE_AWS_REGION = "ap-south-1"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "npm run dev"
+  port = 3000
+  targetPort = 3000
+  publish = "dist"

@@ -1,0 +1,36 @@
+meta {
+  name: Notify Marketplace Buyers
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{base_url}}/marketplace/notify
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-api-key: {{api_key}}
+}
+
+body:json {
+  {
+    "listing_id": "listing-uuid",
+    "buyer_ids": ["buyer-uuid-1", "buyer-uuid-2"]
+  }
+}
+
+docs {
+  # Notify Marketplace Buyers API
+  
+  Notify buyers about a new listing (simulated for demo).
+  
+  ## Parameters
+  - `listing_id` (string, required): Listing UUID
+  - `buyer_ids` (array, required): Array of buyer UUIDs to notify
+  
+  ## Response
+  Returns number of notifications sent and status.
+}

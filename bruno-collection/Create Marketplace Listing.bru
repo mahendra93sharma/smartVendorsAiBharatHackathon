@@ -1,0 +1,42 @@
+meta {
+  name: Create Marketplace Listing
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/marketplace/listings
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-api-key: {{api_key}}
+}
+
+body:json {
+  {
+    "vendor_id": "{{vendor_id}}",
+    "item_name": "tomatoes",
+    "weight_kg": 10.0,
+    "price": 150.0,
+    "condition": "B-Grade"
+  }
+}
+
+docs {
+  # Create Marketplace Listing API
+  
+  Create a B-Grade produce listing on the marketplace.
+  
+  ## Parameters
+  - `vendor_id` (string, required): Vendor UUID
+  - `item_name` (string, required): Produce item name
+  - `weight_kg` (number, required): Weight in kilograms
+  - `price` (number, required): Total price in rupees
+  - `condition` (string, optional): Condition. Default: `B-Grade`
+  
+  ## Response
+  Returns created listing with ID, status, number of buyers notified, and mandi credits earned.
+}

@@ -1,0 +1,205 @@
+================================================================================
+SMART VENDORS - DEPLOYMENT INSTRUCTIONS
+Get Your Prototype URL in 5 Minutes!
+================================================================================
+
+OPTION 1: VERCEL (RECOMMENDED - EASIEST)
+----------------------------------------
+
+Step 1: Install Vercel CLI
+   npm install -g vercel
+
+Step 2: Navigate to frontend
+   cd frontend
+
+Step 3: Login to Vercel
+   vercel login
+   (Browser will open - login with GitHub/Email)
+
+Step 4: Deploy
+   vercel --prod
+
+Step 5: Follow prompts:
+   - Set up and deploy? YES
+   - Which scope? (Select your account)
+   - Link to existing project? NO
+   - What's your project's name? smart-vendors
+   - In which directory is your code located? ./
+   - Want to override the settings? NO
+
+Step 6: DONE!
+   You'll get a URL like: https://smart-vendors-xxx.vercel.app
+   Copy this URL for your hackathon submission!
+
+================================================================================
+
+OPTION 2: NETLIFY (ALSO EASY)
+------------------------------
+
+Step 1: Install Netlify CLI
+   npm install -g netlify-cli
+
+Step 2: Navigate to frontend and build
+   cd frontend
+   npm run build
+
+Step 3: Login to Netlify
+   netlify login
+   (Browser will open - login with GitHub/Email)
+
+Step 4: Deploy
+   netlify deploy --prod --dir=dist
+
+Step 5: Follow prompts:
+   - Create & configure a new site? YES
+   - Team? (Select your team)
+   - Site name? smart-vendors
+   - Publish directory? dist
+
+Step 6: DONE!
+   You'll get a URL like: https://smart-vendors-xxx.netlify.app
+   Copy this URL for your hackathon submission!
+
+================================================================================
+
+OPTION 3: MANUAL DEPLOYMENT (NO CLI NEEDED)
+--------------------------------------------
+
+VERCEL WEB INTERFACE:
+1. Go to https://vercel.com
+2. Click "Add New Project"
+3. Import from GitHub (or upload folder)
+4. Configure:
+   - Framework: Vite
+   - Root Directory: frontend
+   - Build Command: npm run build
+   - Output Directory: dist
+5. Add Environment Variables:
+   VITE_ENABLE_DEMO_MODE=true
+   VITE_ENABLE_OFFLINE_MODE=true
+6. Click "Deploy"
+7. Wait 2-3 minutes
+8. Get your URL from dashboard!
+
+NETLIFY WEB INTERFACE:
+1. Go to https://netlify.com
+2. Click "Add new site"
+3. Import from GitHub (or drag & drop folder)
+4. Configure:
+   - Base directory: frontend
+   - Build command: npm run build
+   - Publish directory: frontend/dist
+5. Add Environment Variables:
+   VITE_ENABLE_DEMO_MODE=true
+   VITE_ENABLE_OFFLINE_MODE=true
+6. Click "Deploy site"
+7. Wait 2-3 minutes
+8. Get your URL from dashboard!
+
+================================================================================
+
+TESTING YOUR DEPLOYMENT
+-----------------------
+
+After deployment, test these features:
+
+1. Open your URL in browser
+2. Check home page loads ✓
+3. Click "Voice Transaction" - should work in demo mode ✓
+4. Click "Price Intelligence" - enter "tomatoes" ✓
+5. Click "Freshness Scanner" - upload any image ✓
+6. Click "Marketplace" - create a listing ✓
+7. Click "Trust Score" - view score ✓
+8. Test on mobile device ✓
+
+All features should work because demo mode is enabled!
+
+================================================================================
+
+TROUBLESHOOTING
+---------------
+
+Problem: Build fails
+Solution: 
+   cd frontend
+   rm -rf node_modules dist
+   npm install
+   npm run build
+
+Problem: Blank page after deployment
+Solution: Check browser console for errors, verify environment variables
+
+Problem: 404 errors on page refresh
+Solution: Already fixed! _redirects file is in place
+
+Problem: Can't install CLI tools
+Solution: Use manual web interface deployment instead
+
+================================================================================
+
+WHAT YOU GET
+------------
+
+✓ Public HTTPS URL
+✓ Global CDN (fast worldwide)
+✓ Automatic SSL certificate
+✓ Free hosting
+✓ Demo mode works perfectly
+✓ All features functional
+✓ Mobile responsive
+✓ Ready for hackathon submission!
+
+================================================================================
+
+NEXT STEPS AFTER DEPLOYMENT
+----------------------------
+
+1. Copy your prototype URL
+2. Test all features
+3. Add URL to SUBMISSION_CHECKLIST.md
+4. Update README.md with live demo link
+5. Share with team
+6. Create demo video showing the live prototype
+7. Submit to hackathon!
+
+================================================================================
+
+QUICK REFERENCE
+---------------
+
+Vercel Deploy:
+   npm install -g vercel
+   cd frontend
+   vercel --prod
+
+Netlify Deploy:
+   npm install -g netlify-cli
+   cd frontend
+   npm run build
+   netlify deploy --prod --dir=dist
+
+Manual Deploy:
+   Go to vercel.com or netlify.com
+   Upload frontend folder
+   Configure and deploy
+
+================================================================================
+
+YOUR PROTOTYPE URL WILL BE:
+- Vercel: https://smart-vendors-[random].vercel.app
+- Netlify: https://smart-vendors-[random].netlify.app
+
+COPY THIS URL FOR YOUR HACKATHON SUBMISSION!
+
+================================================================================
+
+Questions? Check these files:
+- DEPLOY_NOW.md - Detailed deployment guide
+- DEPLOYMENT_OPTIONS.md - All deployment options
+- DEPLOYMENT_CHECKLIST.md - Full AWS deployment (if needed)
+
+================================================================================
+
+🚀 DEPLOY NOW AND GET YOUR PROTOTYPE URL! 🚀
+
+================================================================================

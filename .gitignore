@@ -74,3 +74,6 @@ htmlcov/
 # Lambda
 lambda_layer.zip
 python/
+
+# Local Netlify folder
+.netlify

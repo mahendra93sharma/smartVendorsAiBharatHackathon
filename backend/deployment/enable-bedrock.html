@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enable AWS Bedrock - Smart Vendors</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .status {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        
+        .status-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            width: 30px;
+        }
+        
+        .status-text {
+            flex: 1;
+        }
+        
+        .status-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .status-desc {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .steps {
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .step-content {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 20px;
+            color: #667eea;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Enable AWS Bedrock</h1>
+        <p class="subtitle">Smart Vendors Backend - AI Services Setup</p>
+        
+        <div class="status">
+            <div class="status-item">
+                <span class="status-icon">⏳</span>
+                <div class="status-text">
+                    <div class="status-label">AWS Bedrock</div>
+                    <div class="status-desc">Needs model access request</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">✅</span>
+                <div class="status-text">
+                    <div class="status-label">AWS Transcribe</div>
+                    <div class="status-desc">Permissions added (may need time to propagate)</div>
+                </div>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">✅</span>
+                <div class="status-text">
+                    <div class="status-label">SageMaker</div>
+                    <div class="status-desc">Using demo mode (no action needed)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert">
+            <strong>⚠️ Action Required:</strong> You need to enable AWS Bedrock model access to use transaction extraction features.
+        </div>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    Open AWS Bedrock Console
+                </div>
+                <div class="step-content">
+                    Click the button below to open the AWS Bedrock Model Access page in your region (ap-south-1).
+                    <br><br>
+                    <a href="https://ap-south-1.console.aws.amazon.com/bedrock/home?region=ap-south-1#/modelaccess" 
+                       target="_blank" 
+                       class="btn">
+                        🔗 Open Bedrock Console
+                    </a>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    Request Model Access
+                </div>
+                <div class="step-content">
+                    <p>On the Model Access page:</p>
+                    <ul class="checklist">
+                        <li>Click the <strong>"Manage model access"</strong> or <strong>"Edit"</strong> button</li>
+                        <li>Scroll down to find <strong>Anthropic</strong> models</li>
+                        <li>Check the boxes for Claude models:
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li>✓ Claude 3.5 Sonnet</li>
+                                <li>✓ Claude 3 Sonnet</li>
+                                <li>✓ Claude 3 Haiku</li>
+                                <li>✓ Claude 2.1</li>
+                                <li>✓ Claude 2</li>
+                            </ul>
+                        </li>
+                        <li>Click <strong>"Save changes"</strong> at the bottom</li>
+                        <li>Wait for approval (usually instant)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    Verify Access
+                </div>
+                <div class="step-content">
+                    After approval, run this command in your terminal to verify:
+                    <div class="code-block">cd backend<br>python deployment/validate_prerequisites.py</div>
+                    You should see: <strong>✓ AWS Bedrock: Available with Claude models</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-success" style="display: none;" id="success-message">
+            <strong>✅ Success!</strong> Once you've completed the steps above, your backend will be able to use AWS Bedrock for transaction extraction.
+        </div>
+        
+        <div style="margin-top: 30px;">
+            <h3 style="margin-bottom: 15px;">Quick Links</h3>
+            <a href="https://ap-south-1.console.aws.amazon.com/bedrock/home?region=ap-south-1#/modelaccess" 
+               target="_blank" 
+               class="btn">
+                🔗 Bedrock Console
+            </a>
+            <a href="https://console.aws.amazon.com/iam/home?region=ap-south-1#/users/smart-vendors-deploy" 
+               target="_blank" 
+               class="btn btn-secondary">
+                👤 IAM User
+            </a>
+            <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html" 
+               target="_blank" 
+               class="btn btn-secondary">
+                📚 Documentation
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Smart Vendors Backend</strong></p>
+            <p>AWS Account: 410431701036 | Region: ap-south-1 (Mumbai)</p>
+            <p style="margin-top: 10px;">
+                Need help? Check <code>backend/deployment/ENABLE_AWS_SERVICES.md</code>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Show success message after 2 seconds (simulating user action)
+        setTimeout(() => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('success-message').style.display = 'block';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

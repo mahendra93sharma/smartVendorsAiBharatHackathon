@@ -1,0 +1,34 @@
+meta {
+  name: Get Market Prices
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/prices/tomatoes?limit=3
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 3
+}
+
+headers {
+  x-api-key: {{api_key}}
+}
+
+docs {
+  # Get Market Prices API
+  
+  Get market prices from multiple mandis for a produce item.
+  
+  ## Path Parameters
+  - `item` (string, required): Produce item name (e.g., `tomatoes`, `potatoes`, `onions`)
+  
+  ## Query Parameters
+  - `limit` (integer, optional): Number of mandis to return. Default: 3
+  
+  ## Response
+  Returns list of prices from different mandis with distance and timestamp.
+}

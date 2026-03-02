@@ -23,7 +23,7 @@ This implementation plan focuses on delivering the four mandatory hackathon comp
   - Set up GitHub Actions workflow for CI/CD deployment
   - _Requirements: 1.1, 6.1, 6.2, 6.3_
 
-- [ ] 2. Implement serverless backend API foundation
+- [x] 2. Implement serverless backend API foundation
   - [x] 2.1 Create Lambda function project structure with routes, models, and services separation
     - Set up Python Lambda handlers with API Gateway integration
     - Create directory structure: lambda_functions/, shared/models/, shared/services/, shared/aws/
@@ -48,7 +48,7 @@ This implementation plan focuses on delivering the four mandatory hackathon comp
     - **Property: Demo data population**
     - **Validates: Requirements 9.1**
 
-- [ ] 3. Implement AWS service integration layer with architecture stack
+- [x] 3. Implement AWS service integration layer with architecture stack
   - [x] 3.1 Create AWS Transcribe client for voice-to-text (via Lambda)
     - Implement Lambda function for voice transcription using AWS Transcribe
     - Support Hindi (hi-IN) and English (en-IN) language codes
@@ -86,7 +86,7 @@ This implementation plan focuses on delivering the four mandatory hackathon comp
     - Implement presigned URL generation for temporary access
     - _Requirements: 6.2_
 
-- [ ] 4. Implement core Lambda API functions
+- [x] 4. Implement core Lambda API functions
   - [x] 4.1 Create voice transaction recording Lambda functions
     - Lambda 1: POST /voice/transcribe - Accept audio file, upload to S3, trigger Transcribe, return transcription
     - Lambda 2: POST /transactions - Call Bedrock to extract transaction from text, store in DynamoDB

@@ -30,8 +30,16 @@ npm install
 
 ```bash
 cp .env.example .env
-# Edit .env with API Gateway endpoint
 ```
+
+The `.env` file is already configured with the production AWS API Gateway:
+
+```env
+VITE_API_BASE_URL=https://ji5ymmu4g7.execute-api.ap-south-1.amazonaws.com
+VITE_API_GATEWAY_URL=https://ji5ymmu4g7.execute-api.ap-south-1.amazonaws.com
+```
+
+For local development, uncomment the localhost URLs in `.env`.
 
 ### Run Development Server
 

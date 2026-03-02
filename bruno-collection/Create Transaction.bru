@@ -1,0 +1,38 @@
+meta {
+  name: Create Transaction
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/transactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-api-key: {{api_key}}
+}
+
+body:json {
+  {
+    "text": "Sold 2 kg tomatoes for 50 rupees",
+    "vendor_id": "{{vendor_id}}",
+    "language_code": "en-IN"
+  }
+}
+
+docs {
+  # Create Transaction API
+  
+  Create a transaction from transcribed text using Bedrock NLP.
+  
+  ## Parameters
+  - `text` (string, required): Transcribed text or manual input
+  - `vendor_id` (string, required): Vendor UUID
+  - `language_code` (string, optional): Language code. Default: `en-IN`
+  
+  ## Response
+  Returns created transaction with extracted details including item name, quantity, price, etc.
+}

@@ -1,0 +1,40 @@
+meta {
+  name: Voice Transcribe
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/voice/transcribe
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  x-api-key: {{api_key}}
+}
+
+body:json {
+  {
+    "audio": "SGVsbG8gV29ybGQ=",
+    "language_code": "hi-IN",
+    "vendor_id": "{{vendor_id}}",
+    "media_format": "mp3"
+  }
+}
+
+docs {
+  # Voice Transcribe API
+  
+  Transcribe audio to text and extract transaction details using AWS Transcribe and Bedrock.
+  
+  ## Parameters
+  - `audio` (string, required): Base64-encoded audio file
+  - `language_code` (string, optional): Language code. Supported: `hi-IN` (Hindi), `en-IN` (English). Default: `en-IN`
+  - `vendor_id` (string, required): Vendor UUID
+  - `media_format` (string, optional): Audio format (`mp3`, `wav`, `ogg`). Default: `mp3`
+  
+  ## Response
+  Returns transcription text with confidence score and extracted transaction details.
+}

@@ -1,0 +1,37 @@
+meta {
+  name: Get Marketplace Buyers
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{base_url}}/marketplace/buyers?item=tomatoes&latitude=28.7041&longitude=77.1025&radius_km=10
+  body: none
+  auth: none
+}
+
+params:query {
+  item: tomatoes
+  latitude: 28.7041
+  longitude: 77.1025
+  radius_km: 10
+}
+
+headers {
+  x-api-key: {{api_key}}
+}
+
+docs {
+  # Get Marketplace Buyers API
+  
+  Find nearby buyers for B-Grade produce.
+  
+  ## Query Parameters
+  - `item` (string, required): Produce item name
+  - `latitude` (number, required): Vendor latitude
+  - `longitude` (number, required): Vendor longitude
+  - `radius_km` (number, optional): Search radius in km. Default: 10
+  
+  ## Response
+  Returns list of nearby buyers with their type, distance, interested items, and contact info.
+}

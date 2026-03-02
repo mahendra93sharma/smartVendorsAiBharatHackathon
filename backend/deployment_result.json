@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "deployed_functions": [],
+  "api_endpoint_url": "https://zcm2ndixob.execute-api.ap-south-1.amazonaws.com",
+  "resource_arns": {
+    "iam_role": "arn:aws:iam::410431701036:role/smart-vendors-lambda-execution-dev",
+    "lambda_layer": "arn:aws:lambda:ap-south-1:410431701036:layer:smart-vendors-dependencies-dev:2",
+    "api_gateway": "zcm2ndixob"
+  },
+  "errors": [
+    "Failed to deploy smart-vendors-voice-transcribe-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-create-transaction-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-get-transactions-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-get-market-prices-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-classify-freshness-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-create-marketplace-listing-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-get-marketplace-buyers-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-notify-marketplace-buyers-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to deploy smart-vendors-get-trust-score-dev: An error occurred (InvalidParameterValueException) when calling the CreateFunction operation: Lambda was unable to configure your environment variables because the environment variables you have provided contains reserved keys that are currently not supported for modification. Reserved keys used in this request: AWS_REGION",
+    "Failed to create route /voice/transcribe: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /transactions: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /transactions/{vendor_id}: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /prices/{item}: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /freshness/classify: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /marketplace/listings: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /marketplace/buyers: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /marketplace/notify: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\"",
+    "Failed to create route /trust-score/{vendor_id}: An error occurred (BadRequestException) when calling the CreateRoute operation: The provided route key is not formatted properly for HTTP protocol. Format should be \"[HTTP METHOD] /[RESOURCE PATH]\" or \"$default\""
+  ],
+  "deployment_duration_seconds": 36.60541319847107
+}

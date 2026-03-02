@@ -1,0 +1,38 @@
+meta {
+  name: Get Transactions
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/transactions/{{vendor_id}}?limit=20
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 20
+  ~start_date: 2024-01-01T00:00:00Z
+  ~end_date: 2024-12-31T23:59:59Z
+}
+
+headers {
+  x-api-key: {{api_key}}
+}
+
+docs {
+  # Get Transactions API
+  
+  Retrieve transaction history for a vendor.
+  
+  ## Path Parameters
+  - `vendor_id` (string, required): Vendor UUID
+  
+  ## Query Parameters
+  - `limit` (integer, optional): Maximum number of transactions to return. Default: 20
+  - `start_date` (string, optional): ISO 8601 date to filter from
+  - `end_date` (string, optional): ISO 8601 date to filter to
+  
+  ## Response
+  Returns list of transactions with total count and amount.
+}

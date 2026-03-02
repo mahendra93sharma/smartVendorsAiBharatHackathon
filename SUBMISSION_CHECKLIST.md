@@ -22,7 +22,7 @@ This checklist ensures all mandatory hackathon deliverables are complete and rea
 - [ ] Mobile responsive (320px-768px)
 - [ ] Page load time < 3 seconds
 
-**Prototype URL:** `_____________________________`
+**Prototype URL:** `http://smart-vendors-frontend-1772474994.s3-website.ap-south-1.amazonaws.com`
 
 **Verification:**
 ```bash

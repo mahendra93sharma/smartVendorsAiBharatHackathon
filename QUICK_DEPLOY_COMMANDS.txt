@@ -1,0 +1,152 @@
+╔══════════════════════════════════════════════════════════════════╗
+║                  SMART VENDORS - QUICK DEPLOY                    ║
+║                    Get Your Prototype URL Now!                   ║
+╚══════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────┐
+│ OPTION 1: VERCEL (RECOMMENDED - 5 MINUTES)                      │
+└──────────────────────────────────────────────────────────────────┘
+
+  Step 1: Install Vercel
+  ┌────────────────────────────────────────────────────────────┐
+  │ npm install -g vercel                                      │
+  └────────────────────────────────────────────────────────────┘
+
+  Step 2: Navigate to Frontend
+  ┌────────────────────────────────────────────────────────────┐
+  │ cd frontend                                                │
+  └────────────────────────────────────────────────────────────┘
+
+  Step 3: Login
+  ┌────────────────────────────────────────────────────────────┐
+  │ vercel login                                               │
+  └────────────────────────────────────────────────────────────┘
+  (Browser opens - login with GitHub/Email)
+
+  Step 4: Deploy
+  ┌────────────────────────────────────────────────────────────┐
+  │ vercel --prod                                              │
+  └────────────────────────────────────────────────────────────┘
+
+  Step 5: Get URL
+  ┌────────────────────────────────────────────────────────────┐
+  │ ✅ https://smart-vendors-xxx.vercel.app                    │
+  └────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ OPTION 2: NETLIFY (5 MINUTES)                                   │
+└──────────────────────────────────────────────────────────────────┘
+
+  Step 1: Install Netlify
+  ┌────────────────────────────────────────────────────────────┐
+  │ npm install -g netlify-cli                                 │
+  └────────────────────────────────────────────────────────────┘
+
+  Step 2: Build & Deploy
+  ┌────────────────────────────────────────────────────────────┐
+  │ cd frontend                                                │
+  │ npm run build                                              │
+  │ netlify deploy --prod --dir=dist                           │
+  └────────────────────────────────────────────────────────────┘
+
+  Step 3: Get URL
+  ┌────────────────────────────────────────────────────────────┐
+  │ ✅ https://smart-vendors-xxx.netlify.app                   │
+  └────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ OPTION 3: MANUAL (NO CLI - 5 MINUTES)                           │
+└──────────────────────────────────────────────────────────────────┘
+
+  Vercel:
+  1. Go to https://vercel.com
+  2. Click "Add New Project"
+  3. Upload frontend folder
+  4. Click "Deploy"
+  5. Get URL!
+
+  Netlify:
+  1. Go to https://netlify.com
+  2. Drag & drop frontend folder
+  3. Wait for build
+  4. Get URL!
+
+┌──────────────────────────────────────────────────────────────────┐
+│ TESTING YOUR DEPLOYMENT                                          │
+└──────────────────────────────────────────────────────────────────┘
+
+  Open your URL and test:
+  ✓ Home page loads
+  ✓ Voice transaction (demo mode)
+  ✓ Price intelligence (search "tomatoes")
+  ✓ Freshness scanner (upload image)
+  ✓ Marketplace (create listing)
+  ✓ Trust score (view profile)
+
+┌──────────────────────────────────────────────────────────────────┐
+│ TROUBLESHOOTING                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+  Command not found?
+  ┌────────────────────────────────────────────────────────────┐
+  │ Use: npx vercel --prod                                     │
+  │ Or: npx netlify deploy --prod --dir=dist                   │
+  └────────────────────────────────────────────────────────────┘
+
+  Build fails?
+  ┌────────────────────────────────────────────────────────────┐
+  │ cd frontend                                                │
+  │ rm -rf node_modules dist                                   │
+  │ npm install                                                │
+  │ npm run build                                              │
+  └────────────────────────────────────────────────────────────┘
+
+  Blank page?
+  ┌────────────────────────────────────────────────────────────┐
+  │ Check browser console for errors                           │
+  │ Verify demo mode is enabled                                │
+  │ Redeploy with: vercel --prod --force                       │
+  └────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────┐
+│ AFTER DEPLOYMENT                                                 │
+└──────────────────────────────────────────────────────────────────┘
+
+  1. Copy your prototype URL
+  2. Test all features
+  3. Add URL to SUBMISSION_CHECKLIST.md
+  4. Update README.md
+  5. Share with team
+  6. Create demo video
+  7. Submit to hackathon!
+
+┌──────────────────────────────────────────────────────────────────┐
+│ WHAT YOU GET                                                     │
+└──────────────────────────────────────────────────────────────────┘
+
+  ✅ Public HTTPS URL
+  ✅ Global CDN (fast worldwide)
+  ✅ Automatic SSL certificate
+  ✅ Free hosting forever
+  ✅ Demo mode works perfectly
+  ✅ All features functional
+  ✅ Mobile responsive
+  ✅ Ready for submission!
+
+┌──────────────────────────────────────────────────────────────────┐
+│ NEED MORE HELP?                                                  │
+└──────────────────────────────────────────────────────────────────┘
+
+  📖 Read: VERCEL_DEPLOY_STEPS.md
+  📖 Read: DEPLOY_NOW.md
+  📖 Read: DEPLOYMENT_OPTIONS.md
+  📖 Read: DEPLOY_INSTRUCTIONS.txt
+
+╔══════════════════════════════════════════════════════════════════╗
+║                    🚀 DEPLOY NOW! 🚀                             ║
+║                                                                  ║
+║  Run: npm install -g vercel                                      ║
+║  Then: cd frontend && vercel --prod                              ║
+║                                                                  ║
+║  Get your prototype URL in 5 minutes!                            ║
+╚══════════════════════════════════════════════════════════════════╝
